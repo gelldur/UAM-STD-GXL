@@ -1,7 +1,18 @@
-cmake_minimum_required(VERSION 3.3)
-project(STD)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.3)
+PROJECT(STD)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+SET(EXECUTABLE_OUTPUT_PATH "bin/")
 
-set(SOURCE_FILES src/main.cpp)
-add_executable(STD ${SOURCE_FILES})
+INCLUDE_DIRECTORIES(pugixml/src)
+
+SET(HEADER_FILES
+		pugixml/src/pugiconfig.hpp
+		pugixml/src/pugixml.hpp)
+
+SET(SOURCE_FILES
+		src/main.cpp
+		pugixml/src/pugixml.cpp)
+
+
+ADD_EXECUTABLE(STD ${SOURCE_FILES} ${HEADER_FILES})
