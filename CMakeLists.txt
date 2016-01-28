@@ -12,7 +12,9 @@ SET(HEADER_FILES
 
 SET(SOURCE_FILES
 		src/main.cpp
-		pugixml/src/pugixml.cpp)
+		pugixml/src/pugixml.cpp
+		src/Graph.cpp src/Graph.h
+		)
 
 
 ADD_EXECUTABLE(STD ${SOURCE_FILES} ${HEADER_FILES})

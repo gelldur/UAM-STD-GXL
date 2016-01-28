@@ -1,6 +1,32 @@
 #include <iostream>
 #include <pugixml.hpp>
+#include <cstring>
+#include "Graph.h"
 
+Graph parseGraph(pugi::xml_document& document)
+{
+	auto graphXml = document.find_node([](pugi::xml_node element)
+									   {
+										   return strcmp(element.name(), "graph") == 0;
+									   });
+	Graph graph(graphXml.attribute("id").as_string());
+	for (auto node : graphXml.children())
+	{
+		const std::string& nodeName = node.name();
+		if (nodeName == "node")
+		{
+			graph.addNode(node.attribute("id").as_string("unknown"));
+		}
+		else if (nodeName == "edge")
+		{
+			//For Bidirectional graph
+			graph.addBidirectionalEdge(node.attribute("from").as_string("unknown"), node.attribute("to")
+					.as_string("unknown"));
+		}
+	}
+
+	return graph;
+}
 
 int main(int argc, const char* args[])
 {
@@ -65,5 +91,20 @@ int main(int argc, const char* args[])
 			std::cout << "status_no_document_element" << std::endl;
 			return 2;
 	}
+
+	//auto graph = parseGraph(document);
+	Graph graph("test1 - (1,6) bridge");
+	graph.addBidirectionalEdge("0", "2");
+	graph.addBidirectionalEdge("0", "1");
+	graph.addBidirectionalEdge("1", "2");
+	graph.addBidirectionalEdge("1", "6");
+	graph.addBidirectionalEdge("1", "4");
+	graph.addBidirectionalEdge("1", "3");
+	graph.addBidirectionalEdge("3", "5");
+	graph.print();
+	std::cout << "Bridges in graph:" << std::endl;
+	graph.printBridges();
+	std::cout << "##############################" << std::endl;
+
 	return 0;
 }
