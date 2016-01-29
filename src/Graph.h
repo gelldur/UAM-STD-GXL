@@ -26,10 +26,14 @@ public:
 private:
 	struct Verticle
 	{
-		bool isVisited;
-		int disc;
-		int low;
-		std::string parent;
+		int discovery = -1;
+		int lowest = -1;
+		std::string parent = "";
+
+		bool isVisited() const
+		{
+			return discovery >= 0;
+		}
 	};
 
 	void dfsLookForBridge(const std::string& verticle, std::map<std::string, Verticle>& verticles);

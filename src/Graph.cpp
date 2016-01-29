@@ -43,28 +43,27 @@ void Graph::print()
 
 void Graph::dfsLookForBridge(const std::string& verticle, std::map<std::string, Verticle>& verticles)
 {
-	static int order = 0;
-	verticles[verticle].isVisited = true;
-
-	verticles[verticle].disc = verticles[verticle].low = ++order;
+	static int discoveryOrder = 0;
+	verticles[verticle].discovery = verticles[verticle].lowest = ++discoveryOrder;
 
 	for (const auto& verticleTo : _vertices[verticle])
 	{
-		if (verticles[verticleTo].isVisited == false)
+		if (verticles[verticleTo].isVisited() == false)
 		{
 			verticles[verticleTo].parent = verticle;
 			dfsLookForBridge(verticleTo, verticles);
 
-			verticles[verticle].low = std::min(verticles[verticle].low, verticles[verticleTo].low);
+			verticles[verticle].lowest = std::min(verticles[verticle].lowest, verticles[verticleTo].lowest);
 
-			if (verticles[verticleTo].low > verticles[verticle].disc)
+			if (verticles[verticleTo].lowest > verticles[verticle].discovery)
 			{
 				std::cout << verticle << " - " << verticleTo << std::endl;
 			}
 		}
 		else if (verticleTo != verticles[verticle].parent)
 		{
-			verticles[verticle].low = std::min(verticles[verticle].low, verticles[verticleTo].disc);
+			//If verticleTo isn't parent we want update lowest discoverable verticle
+			verticles[verticle].lowest = std::min(verticles[verticle].lowest, verticles[verticleTo].discovery);
 		}
 	}
 }
@@ -79,12 +78,12 @@ bool Graph::printBridges()
 	std::map<std::string, Verticle> verticles;
 	for (const auto& vertice : _vertices)
 	{
-		verticles[vertice.first] = {false, 0, 0, ""};
+		verticles[vertice.first] = {};
 	}
 
 	for (const auto& element : verticles)
 	{
-		if (element.second.isVisited == false)
+		if (element.second.isVisited() == false)
 		{
 			dfsLookForBridge(element.first, verticles);
 		}
