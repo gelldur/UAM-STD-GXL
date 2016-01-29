@@ -30,8 +30,8 @@ private:
 		int disc;
 		int low;
 		std::string parent;
-
 	};
+
 	void dfsLookForBridge(const std::string& verticle, std::map<std::string, Verticle>& verticles);
 
 	std::string _name;

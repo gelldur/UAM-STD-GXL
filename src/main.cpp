@@ -93,18 +93,54 @@ int main(int argc, const char* args[])
 	}
 
 	//auto graph = parseGraph(document);
-	Graph graph("test1 - (1,6) bridge");
-	graph.addBidirectionalEdge("0", "2");
-	graph.addBidirectionalEdge("0", "1");
-	graph.addBidirectionalEdge("1", "2");
-	graph.addBidirectionalEdge("1", "6");
-	graph.addBidirectionalEdge("1", "4");
-	graph.addBidirectionalEdge("1", "3");
-	graph.addBidirectionalEdge("3", "5");
-	graph.print();
-	std::cout << "Bridges in graph:" << std::endl;
-	graph.printBridges();
-	std::cout << "##############################" << std::endl;
+	{
+		Graph graph("test1 - (1,6) bridge");
+		graph.addBidirectionalEdge("0", "2");
+		graph.addBidirectionalEdge("0", "1");
+		graph.addBidirectionalEdge("1", "2");
+		graph.addBidirectionalEdge("1", "6");
+		graph.addBidirectionalEdge("1", "4");
+		graph.addBidirectionalEdge("1", "3");
+		graph.addBidirectionalEdge("3", "5");
+		graph.addBidirectionalEdge("4", "5");
+		graph.print();
+		std::cout << "Bridges in graph:" << std::endl;
+		graph.printBridges();
+		std::cout << "##############################" << std::endl;
+	}
+	{
+		Graph graph("test2 - (3,4),(0,3) bridge");
+		graph.addBidirectionalEdge("1", "0");
+		graph.addBidirectionalEdge("0", "2");
+		graph.addBidirectionalEdge("2", "1");
+		graph.addBidirectionalEdge("0", "3");
+		graph.addBidirectionalEdge("3", "4");
+		graph.print();
+		std::cout << "Bridges in graph:" << std::endl;
+		graph.printBridges();
+		std::cout << "##############################" << std::endl;
+	}
+	{
+		Graph graph("test3 - (2,3),(1,2),(0,1) bridge");
+		graph.addBidirectionalEdge("0", "1");
+		graph.addBidirectionalEdge("1", "2");
+		graph.addBidirectionalEdge("2", "3");
+		graph.print();
+		std::cout << "Bridges in graph:" << std::endl;
+		graph.printBridges();
+		std::cout << "##############################" << std::endl;
+	}
+	{
+		Graph graph("test4 - NO bridge");
+		graph.addBidirectionalEdge("0", "1");
+		graph.addBidirectionalEdge("1", "2");
+		graph.addBidirectionalEdge("2", "3");
+		graph.addBidirectionalEdge("3", "0");
+		graph.print();
+		std::cout << "Bridges in graph:" << std::endl;
+		graph.printBridges();
+		std::cout << "##############################" << std::endl;
+	}
 
 	return 0;
 }
